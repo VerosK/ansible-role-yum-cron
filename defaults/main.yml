@@ -1,0 +1,17 @@
+
+yum_cron_enable: yes
+
+
+#  What kind of update to use:
+# default                            = yum upgrade
+# security                           = yum --security upgrade
+# security-severity:Critical         = yum --sec-severity=Critical upgrade
+# minimal                            = yum --bugfix update-minimal
+# minimal-security                   = yum --security update-minimal
+# minimal-security-severity:Critical =  --sec-severity=Critical update-minimal
+yum_cron_cmd: default
+yum_cron_update: 'yes'
+yum_cron_random_sleep: 360
+
+# host name
+yum_cron_system_name: 'None'

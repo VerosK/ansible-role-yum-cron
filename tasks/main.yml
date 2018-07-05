@@ -1,0 +1,32 @@
+
+- name: Make sure we're running on CentOS/7
+  assert:
+    that:
+    - ansible_distribution == 'CentOS'
+    - ansible_distribution_major_version|int == 7
+
+- name: Install yum-cron
+  yum:
+    name: yum-cron
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Provide config
+  template:
+    src: yum-cron.conf.j2
+    dest: /etc/yum/yum-cron.conf
+    backup: yes
+
+- name: Enable yum-cron
+  service:
+    name: yum-cron
+    enabled: yes
+    state: started
+  when: yum_cron_enable
+
+- name: Disable yum-cron
+  service:
+    name: yum-cron
+    enabled: no
+    state: stopped
+  when: not yum_cron_enable
